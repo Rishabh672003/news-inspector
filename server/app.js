@@ -10,6 +10,8 @@ const port = process.env.PORT || 3000;
 
 import indexRouter from "./routes/index.js";
 import authRouter from "./routes/auth.js";
+import userRouter from "./routes/user.js";
+import articleRotuer from "./routes/article.js";
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -26,6 +28,8 @@ app.use(cookieParser());
 
 app.use("/api", indexRouter);
 app.use("/api/auth", authRouter);
+app.use("/api/user", userRouter);
+app.use("/api/article", articleRotuer);
 
 mongoose
   .connect(process.env.DB_URI)
