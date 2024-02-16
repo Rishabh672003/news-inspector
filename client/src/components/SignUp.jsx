@@ -1,8 +1,5 @@
 import { useState } from "react";
 import { app } from "../firebase";
-import { Image } from "astro:assets";
-import google from "../../public/google.svg";
-
 import { GoogleAuthProvider, signInWithPopup, getAuth } from "@firebase/auth";
 import axios from "axios";
 
@@ -26,9 +23,10 @@ const Signup = () => {
         formData,
         { withCredentials: true }
       );
+      console.log(res.status);
       setError(false);
       setLoading(false);
-      if (window && res) {
+      if (window && res.status == 201) {
         window.location.href = "/home";
       }
     } catch (error) {
@@ -105,7 +103,7 @@ const Signup = () => {
             <span className="absolute rounded-md inset-0 w-full h-full bg-teal-300 border-2 border-black group-hover:bg-teal-400"></span>
             <span className="relative rounded-md text-black">Sign Up</span>
           </button>
-          <p className="text-red-500 mt-5">
+          <p className="text-red-500">
             {error ? error || "Signup failed" : ""}
           </p>
         </form>

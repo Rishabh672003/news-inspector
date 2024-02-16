@@ -15,25 +15,17 @@ const LogIn = () => {
 
   async function handleSubmit(e) {
     e.preventDefault();
-
     try {
-      setLoading(true);
-
       const res = await axios.post(
         "http://localhost:3000/api/auth/signin",
         { ...formData, remember: checked },
         { withCredentials: true }
       );
-      const data = res.data;
-
       setError(false);
-      setLoading(false);
-
-      if (window && data) {
+      if (res.status == 200) {
         window.location.href = "/home";
       }
     } catch (error) {
-      setLoading(false);
       setError(error.response ? error.response.data.message : error.message);
     }
   }
@@ -108,7 +100,7 @@ const LogIn = () => {
             {error ? error || "Something went wrong!" : ""}
           </p>
         </form>
-        <hr className="mt-4" />
+        <hr />
         <div className="flex justify-around gap-2 mt-2">
           <button
             type="button"
@@ -124,7 +116,8 @@ const LogIn = () => {
                 <span>Loading...</span>
               </div>
             ) : (
-              <div className="flex items-center justify-center">
+              <div className="flex gap-2 items-center justify-center">
+                <img width={20} src="/google.svg" alt="google" />
                 <span>Continue with Google</span>
               </div>
             )}
